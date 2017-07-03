@@ -5,8 +5,6 @@ set(catkin_RUN_PACKAGES
 	actionlib
 	cv_bridge
 	ipa_building_msgs
-	libdlib
-	opengm
 	roscpp
 	roslib
 	sensor_msgs
@@ -30,6 +28,8 @@ generate_dynamic_reconfigure_options(
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system thread filesystem)
 
+find_package(dlib)
+find_package(opengm)
 find_package(OpenMP)
 if(OPENMP_FOUND)
 	message(STATUS "OPENMP FOUND")
@@ -101,7 +101,8 @@ target_link_libraries(room_segmentation_server
 	${catkin_LIBRARIES}
 	${Boost_LIBRARIES}
 	${OpenMP_LIBS}
-	${OpenCV_LIBRARIES})
+	${OpenCV_LIBRARIES}
+	dlib::dlib)
 
 ### client for testing purpose
 add_executable(room_segmentation_client ros/src/room_segmentation_client.cpp)
